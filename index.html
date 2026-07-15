@@ -1,25 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My First Website!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Google Sheets Dashboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            color: #666;
-            font-size: 18px;
-        }
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f4f4f4; }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Awesome Website!</h1>
-    <p>This website was built using GitHub Pages. I'm learning how to code!</p>
+
+    <h1>Data Loaded From Google Sheets</h1>
+    <div id="loading">Loading data...</div>
+    
+    <table id="data-table" style="display:none;">
+        <thead id="table-head"></thead>
+        <tbody id="table-body"></tbody>
+    </table>
+
+    <script>
+        // REPLACE THESE WITH YOUR OWN DETAILS
+        const API_KEY = 'AIzaSyDrAzQ5-fDpjHmxmZQmWR1ITW3Ir-RGbNo';
+        const SPREADSHEET_ID = '1_tGeDdKcVXqfuwoKxCB9TdNTb1WjCHVHn5oujimm5Lw';
+        const RANGE = 'Attendance!A1:Z14'; // Adjust Sheet name and range as needed
+
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+
+        async function fetchSheetData() {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Failed to fetch sheet data.');
+                
+                const data = await response.json();
+                const rows = data.values;
+
+                if (!rows || rows.length === 0) {
+                    document.getElementById('loading').innerText = 'No data found.';
+                    return;
+                }
+
+                // Hide loading text, show table
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('data-table').style.display = 'table';
+
+                // Render Table Headers (assuming first row contains headers)
+                const headers = rows[0];
+                const thead = document.getElementById('table-head');
+                let headerHTML = '<tr>';
+                headers.forEach(header => {
+                    headerHTML += `<th>${header}</th>`;
+                });
+                headerHTML += '</tr>';
+                thead.innerHTML = headerHTML;
+
+                // Render Table Rows
+                const tbody = document.getElementById('table-body');
+                let rowsHTML = '';
+                for (let i = 1; i < rows.length; i++) {
+                    rowsHTML += '<tr>';
+                    rows[i].forEach(cell => {
+                        rowsHTML += `<td>${cell}</td>`;
+                    });
+                    rowsHTML += '</tr>';
+                }
+                tbody.innerHTML = rowsHTML;
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('loading').innerText = 'Error loading data. Check console.';
+            }
+        }
+
+        // Run when page loads
+        window.onload = fetchSheetData;
+    </script>
 </body>
 </html>
