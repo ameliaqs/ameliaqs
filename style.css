@@ -129,7 +129,8 @@ a:hover {
 /* Container for the two columns */
 .two-column-layout {
   display: flex;
-  flex-direction: column; /* Stack on mobile screens */
+  flex-direction: row; /* Stack on mobile screens */
+   align-items: stretch;
   gap: 30px;
   margin: 40px auto;
   max-width: 1000px;
