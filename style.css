@@ -137,8 +137,12 @@ a:hover {
 
 /* Left column style */
 .main-content {
-  flex: 2; /* Takes up 2/3 of the width on larger screens */
+  flex: 1; /* Takes up 2/3 of the width on larger screens */
   text-align: left; /* Ensures your paragraphs are left-justified */
+   background: var(--card-bg, #f4f4f4); /* Optional: matches your theme's card backgrounds */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
 /* Right column "chunk" style */
