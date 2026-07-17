@@ -1,0 +1,127 @@
+/* ==========================================================================
+   1. CSS RESET & VARIABLES
+   ========================================================================== */
+:root {
+    /* Color Palette */
+    --bg-primary: #f8fafc;       /* Light grayish blue background */
+    --surface: #ffffff;          /* White for cards/boxes */
+    --text-main: #1e293b;        /* Deep charcoal for readability */
+    --text-muted: #64748b;       /* Muted gray for captions/subtext */
+    --accent: #2563eb;           /* Vibrant blue for links/buttons */
+    --accent-hover: #1d4ed8;     /* Darker blue for hover states */
+    --border-color: #e2e8f0;     /* Light gray for dividing lines */
+    
+    /* Layout Variables */
+    --max-width: 1100px;         /* Max width of content box */
+    --radius: 8px;               /* Smooth rounded corner radius */
+}
+
+/* Strip out browser default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. BASE STYLES
+   ========================================================================== */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Handle fluid image sizing */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   3. TYPOGRAPHY & TEXT HIERARCHY
+   ========================================================================== */
+h1, h2, h3 {
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
+h3 { font-size: 1.5rem; }
+
+p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.muted-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   4. LAYOUT CONTAINERS
+   ========================================================================== */
+/* Centers and restricts content size on big screens */
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* A card container component to hold items */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Flexible grid system for layouts (e.g., 3 columns) */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* ==========================================================================
+   5. INTERACTIVE ELEMENTS (BUTTONS & LINKS)
+   ========================================================================== */
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Primary Button Template */
+.btn {
+    display: inline-block;
+    background-color: var(--accent);
+    color: #ffffff;
+    padding: 12px 24px;
+    font-weight: 600;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--accent-hover);
+    text-decoration: none;
+}
+
+.btn:active {
+    transform: scale(0.98); /* Tiny click effect */
+}
